@@ -14,7 +14,7 @@ struct encounter
     int varianceValue {0};
 
     std::vector<modifier> modifiers;
-    std::vector<reward> rewards {3};
+    std::vector<reward> rewards;
 
     void calculateVarianceValue(std::mt19937 &generator)
     {
@@ -24,5 +24,33 @@ struct encounter
 
         lower += varianceValue;
         upper += varianceValue;
+    }
+
+    void createRewards(std::mt19937 &generator)
+    {
+        for (int i = 0; i < rewardsAvailable; ++i)
+        {
+            std::uniform_int_distribution<int> distributor(0, rewardCount - 1);
+            rewards.push_back(static_cast<reward>(distributor(generator)));
+        }
+    }
+
+    void showRewards()
+    {
+        int i {0};
+        for (reward r : rewards)
+        {
+            std::cout << "reward " << i << " -> ";
+            switch (r)
+            {
+                case  NEWDIEVOUCHER: std::cout << "add a new die to your hand."; break;
+                case UPGRADEVOUCHER: std::cout << "upgrade a die in your hand."; break;
+                case  MODIFYVOUCHER: std::cout << "modify  a die in your hand."; break;
+                case  REMOVEVOUCHER: std::cout << "remove  a die in your hand."; break;
+                case   ROLLSVOUCHER: std::cout << "increases     your rerolls.";break;
+            }
+            ++i;
+            std::cout << '\n';
+        }
     }
 };

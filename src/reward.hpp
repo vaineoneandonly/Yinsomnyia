@@ -1,8 +1,14 @@
 #pragma once
 #include <string>
 
-struct reward
+#define rewardsAvailable 3
+#define rewardCount 5
+
+enum reward
 {
-    std::string         name;
-    std::string  description;
+     NEWDIEVOUCHER,
+    UPGRADEVOUCHER,
+     MODIFYVOUCHER,
+     REMOVEVOUCHER,
+      ROLLSVOUCHER
 };

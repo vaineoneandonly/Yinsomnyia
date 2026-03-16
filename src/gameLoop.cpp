@@ -29,6 +29,8 @@ int main()
         {
             std::cout << "victory!\n";
             currentRerolls = player.rerolls;
+            e.createRewards(randomGenerator);
+            e.showRewards();
             break;
         }
         else if (currentRerolls > 0)
@@ -39,4 +41,28 @@ int main()
         --currentRerolls;
     }
     std::cout << "whomp whomp. May the Gods show you the mercy almighty " << e.name << " didn't.\n"; 
+}
+
+void coreLoop()
+{
+    std::random_device  randomDevice;
+    std::mt19937        randomGenerator {randomDevice()};
+
+    encounter e {"Waooga"};
+    e.calculateVarianceValue(randomGenerator);
+
+    hand player;
+    
+    int currentRerolls {player.rerolls};
+    while (currentRerolls >= 0)
+    {
+        player.toss(randomGenerator);
+        if (player.sum >= e.lower && player.sum <= e.upper)
+        {
+            currentRerolls = player.rerolls;
+            break;
+        }
+
+        --currentRerolls;
+    }
 }
