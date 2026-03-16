@@ -35,7 +35,7 @@ int main()
             std::cout << "choose one of the above rewards: ";
             std::cin >> rewardSelection;
 
-            switch(rewardSelection)
+            switch(e.rewards[rewardSelection])
             {
                 case  NEWDIEVOUCHER: player.add({}); break;
                 case UPGRADEVOUCHER: std::cout << "upgrade a die in your hand."; break;
