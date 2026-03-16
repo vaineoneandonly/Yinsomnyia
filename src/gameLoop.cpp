@@ -17,52 +17,41 @@ int main()
 
     hand player;
     
-    int currentRerolls {player.rerolls};
-    
-    std::cout << "You face the mighty " << e.name << ". Have your toss land between "<< e.lower << " and " << e.upper << " to move on!\n";
-    while (currentRerolls >= 0)
+    int rewardSelection {-1};
+
+    while (player.currentRerolls >= 0)
     {
+        std::cout << "You face the mighty " << e.name << ". Have your toss land between "<< e.lower << " and " << e.upper << " to move on!\n";
         player.toss(randomGenerator);
         std::cout << "rolled a " << player.sum << "! ";
 
         if (player.sum >= e.lower && player.sum <= e.upper)
         {
             std::cout << "victory!\n";
-            currentRerolls = player.rerolls;
+            player.currentRerolls = player.totalRerolls;
             e.createRewards(randomGenerator);
             e.showRewards();
-            break;
+            
+            std::cout << "choose one of the above rewards: ";
+            std::cin >> rewardSelection;
+
+            switch(rewardSelection)
+            {
+                case  NEWDIEVOUCHER: player.add({}); break;
+                case UPGRADEVOUCHER: std::cout << "upgrade a die in your hand."; break;
+                case  MODIFYVOUCHER: std::cout << "modify  a die in your hand."; break;
+                case  REMOVEVOUCHER: std::cout << "remove  a die in your hand."; break;
+                case   ROLLSVOUCHER: player.increaseRerolls(); break;
+            }
+
+            e.rewards.clear();
         }
-        else if (currentRerolls > 0)
+        else if (player.currentRerolls > 0)
         {
-            std::cout << "tossing again... (total rerolls left: " << currentRerolls << ")\n";
+            std::cout << "tossing again... (total rerolls left: " << player.currentRerolls << ")\n";
         }
 
-        --currentRerolls;
+        --player.currentRerolls;
     }
     std::cout << "whomp whomp. May the Gods show you the mercy almighty " << e.name << " didn't.\n"; 
-}
-
-void coreLoop()
-{
-    std::random_device  randomDevice;
-    std::mt19937        randomGenerator {randomDevice()};
-
-    encounter e {"Waooga"};
-    e.calculateVarianceValue(randomGenerator);
-
-    hand player;
-    
-    int currentRerolls {player.rerolls};
-    while (currentRerolls >= 0)
-    {
-        player.toss(randomGenerator);
-        if (player.sum >= e.lower && player.sum <= e.upper)
-        {
-            currentRerolls = player.rerolls;
-            break;
-        }
-
-        --currentRerolls;
-    }
 }

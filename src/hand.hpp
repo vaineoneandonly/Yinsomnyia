@@ -6,15 +6,16 @@ struct hand
 {
     std::vector<die> dices {2};
     
-    int sum     {0};
-    int rerolls {1};
+    int            sum {0};
+    int   totalRerolls {1};
+    int currentRerolls {1};
 
     void add(die newDie) { dices.push_back({newDie}); }
     void upgrade(/*ref to die*/) {}
     void modify(/*ref to die*/) {}
     void remove(/*ref to die */) {}
     
-    void increaseRerolls() {}
+    void increaseRerolls() { ++totalRerolls; }
 
     void toss(std::mt19937 &generator) 
     {
