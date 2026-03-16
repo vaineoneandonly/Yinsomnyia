@@ -6,7 +6,7 @@ struct hand
 {
     std::vector<die> dices {2};
     
-    int sum {0};
+    int sum     {0};
     int rerolls {1};
 
     void add(die newDie) { dices.push_back({newDie}); }

@@ -3,6 +3,6 @@
 
 struct reward
 {
-    std::string name;
-    std::string description;
+    std::string         name;
+    std::string  description;
 };
