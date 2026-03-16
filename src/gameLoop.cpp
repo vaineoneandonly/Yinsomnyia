@@ -5,20 +5,24 @@
 #include "die.hpp"
 #include "hand.hpp"
 #include "encounter.hpp"
+#include "reward.hpp"
 
 int main()
 {
+    std::random_device  randomDevice;
+    std::mt19937        randomGenerator {randomDevice()};
+
     encounter e {"Waooga"};
-    e.lower = 10;
-    e.upper = 14;
+    e.calculateVarianceValue(randomGenerator);
+
     hand player;
-
+    
     int currentRerolls {player.rerolls};
-
+    
     std::cout << "You face the mighty " << e.name << ". Have your toss land between "<< e.lower << " and " << e.upper << " to move on!\n";
     while (currentRerolls >= 0)
     {
-        player.toss();
+        player.toss(randomGenerator);
         std::cout << "rolled a " << player.sum << "! ";
 
         if (player.sum >= e.lower && player.sum <= e.upper)
@@ -27,11 +31,12 @@ int main()
             currentRerolls = player.rerolls;
             break;
         }
-        else
+        else if (currentRerolls > 0)
         {
             std::cout << "tossing again... (total rerolls left: " << currentRerolls << ")\n";
-            --currentRerolls;
         }
+
+        --currentRerolls;
     }
-    std::cout << "may the Gods show you the mercy almighty " << e.name << " didn't.\n"; 
+    std::cout << "whomp whomp. May the Gods show you the mercy almighty " << e.name << " didn't.\n"; 
 }

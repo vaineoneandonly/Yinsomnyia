@@ -9,13 +9,10 @@ struct die
 
     std::vector<modifier> modifiers;
 
-    void toss() 
+    void toss(std::mt19937 &generator) 
     {
-        std::random_device  rd;
-        std::mt19937        g {rd()};
-
-        std::uniform_int_distribution<> d(1, sideCount);
-        int newUpperFaceValue {d(g)};
+        std::uniform_int_distribution<> distributor(1, sideCount);
+        int newUpperFaceValue {distributor(generator)};
 
         upperFaceValue = newUpperFaceValue; 
     }

@@ -16,12 +16,12 @@ struct hand
     
     void increaseRerolls() {}
 
-    void toss(/*ref to dices*/) 
+    void toss(std::mt19937 &generator) 
     {
         sum = 0;
         for (int i = 0; i < dices.size(); ++i) 
         { 
-            dices[i].toss();
+            dices[i].toss(generator);
             sum += dices[i].upperFaceValue; 
         } 
     }
