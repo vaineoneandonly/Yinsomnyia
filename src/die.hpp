@@ -1,8 +1,7 @@
 #pragma once
 #include <vector>
-#include <cstdlib>
+#include <random>
 #include "modifier.hpp"
-
 struct die
 {
     int sideCount {6};
@@ -10,15 +9,23 @@ struct die
 
     std::vector<modifier> modifiers;
 
-    void toss() { upperFaceValue = rand() % (sideCount - 1) + 1; }
+    void toss() 
+    {
+        std::random_device rd;
+        std::mt19937 g {rd()};
+
+        std::uniform_int_distribution<> d(1, sideCount);
+        int newUpperFaceValue = d(g);
+
+        upperFaceValue = newUpperFaceValue; 
+    }
 
     void printDebug()
     {
-        std::cout << sideCount << "sides; ";
         for (auto modifier : modifiers)
         {
-            std::cout << modifier.name << " - " << modifier.description;
+            std::cout << upperFaceValue;
         }
-        std::cout << '\n';
+        std::cout << '-';
     }
 };

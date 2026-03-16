@@ -1,4 +1,5 @@
 #include <iostream>
+#include <random>
 
 #include "modifier.hpp"
 #include "die.hpp"
@@ -13,6 +14,7 @@ int main()
     hand player;
 
     int currentRerolls {player.rerolls};
+
     std::cout << "You face the mighty " << e.name << ". Have your toss land between "<< e.lower << " and " << e.upper << " to move on!\n";
     while (currentRerolls >= 0)
     {
@@ -31,7 +33,5 @@ int main()
             --currentRerolls;
         }
     }
-
-    std::cout << "rolled a " << player.sum << "! ";
     std::cout << "may the Gods show you the mercy almighty " << e.name << " didn't.\n"; 
 }

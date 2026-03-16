@@ -18,7 +18,7 @@ struct hand
 
     void toss(/*ref to dices*/) 
     {
-        sum = 0; 
+        sum = 0;
         for (int i = 0; i < dices.size(); ++i) 
         { 
             dices[i].toss();
