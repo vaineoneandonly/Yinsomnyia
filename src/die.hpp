@@ -14,6 +14,11 @@ struct die
 
     void printDebug()
     {
-        std::cout << sideCount << " - " << upperFaceValue << '\n';
+        std::cout << sideCount << "sides; ";
+        for (auto modifier : modifiers)
+        {
+            std::cout << modifier.name << " - " << modifier.description;
+        }
+        std::cout << '\n';
     }
 };
