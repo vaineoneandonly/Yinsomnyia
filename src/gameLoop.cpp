@@ -7,7 +7,6 @@
 
 int main()
 {
-
     encounter e {"Waooga"};
     e.lower = 10;
     e.upper = 14;

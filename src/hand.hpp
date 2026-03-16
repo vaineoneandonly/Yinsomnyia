@@ -13,6 +13,8 @@ struct hand
     void upgrade(/*ref to die*/) {}
     void modify(/*ref to die*/) {}
     void remove(/*ref to die */) {}
+    
+    void increaseRerolls() {}
 
     void toss(/*ref to dices*/) 
     {
